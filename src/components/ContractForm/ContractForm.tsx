@@ -36,7 +36,7 @@ const ContractForm: React.FC = () => {
     if (interestRate < 1) {
       errors.push("The contract amount needs to greater than 0");
     }
-    if (borrower.trim().length) {
+    if (!borrower.trim().length) {
       errors.push("Please add a borrower");
     }
     if (!investor.trim().length) {
@@ -51,7 +51,6 @@ const ContractForm: React.FC = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      mode: "no-cors",
       body: JSON.stringify(contractData),
     });
   };
@@ -74,8 +73,12 @@ const ContractForm: React.FC = () => {
     };
 
     const hasErrors = errors.length > 0;
+    console.log(errors);
+
     if (!hasErrors) {
-      postContractData(contractData);
+      postContractData(contractData).catch((error) => {
+        console.log(error);
+      });
     }
   };
 
@@ -103,7 +106,7 @@ const ContractForm: React.FC = () => {
           endAdornment: (
             <InputAdornment position="start">% p.a.</InputAdornment>
           ),
-          inputProps: { min: 0, max: 200, step: 0.05 },
+          inputProps: { min: 0, max: 200, step: 0.01 },
         }}
         inputRef={interestRateInput}
         required
