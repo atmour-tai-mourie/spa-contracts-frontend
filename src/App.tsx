@@ -1,10 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Container from "@mui/material/Container";
+
+import "./App.css";
+import ContractForm from "./components/ContractForm/ContractForm";
+import Header from "./components/UI/Header/Header";
 
 function App() {
   return (
     <div className="App">
+      <Header />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
