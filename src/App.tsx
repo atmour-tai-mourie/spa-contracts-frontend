@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 
 import ContractForm from "./components/ContractForm/ContractForm";
 import Header from "./components/UI/Header/Header";
+import Contracts from "./components/Contracts/Contracts";
 
 function App() {
   return (
