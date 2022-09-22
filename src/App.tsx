@@ -1,7 +1,7 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
 import Container from "@mui/material/Container";
 
-import "./App.css";
 import ContractForm from "./components/ContractForm/ContractForm";
 import Header from "./components/UI/Header/Header";
 
@@ -10,7 +10,10 @@ function App() {
     <div className="App">
       <Header />
       <Container maxWidth="sm">
-        <ContractForm />
+        <Routes>
+          <Route path="/" element={<ContractForm />} />
+          <Route path="contracts" element={<Contracts />} />
+        </Routes>
       </Container>
     </div>
   );
