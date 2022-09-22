@@ -11,7 +11,6 @@ interface ContractData {
 }
 
 const ContractForm: React.FC = () => {
-  // not sure if needed to add default values
   const contractAmountInput = useRef<HTMLInputElement>(null);
   const interestRateInput = useRef<HTMLInputElement>(null);
   const borrowerInput = useRef<HTMLInputElement>(null);
