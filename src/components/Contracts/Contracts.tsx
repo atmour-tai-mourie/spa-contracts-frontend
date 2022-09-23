@@ -18,8 +18,6 @@ const Contracts: React.FC = () => {
     );
 
     const contractsData = await contractsResponse.json();
-    console.log(contractsData);
-
     setContracts(contractsData);
   };
 
