@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Spinner from "../UI/Spinner";
 import Contract from "./Contract";
 
 interface ContractData {
@@ -11,6 +12,8 @@ interface ContractData {
 
 const Contracts: React.FC = () => {
   const [contracts, setContracts] = useState<ContractData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const fetchContractData = async () => {
     const contractsResponse = await fetch(
       "http://localhost:7071/api/HttpTrigger2"
@@ -24,10 +27,12 @@ const Contracts: React.FC = () => {
     fetchContractData().catch((error) => {
       console.log(error);
     });
+    setIsLoading(false);
   }, []);
 
   return (
     <>
+      {isLoading && <Spinner />}
       {contracts.map((contract) => (
         <Contract contractData={contract} />
       ))}
