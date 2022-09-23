@@ -1,7 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { TextField, InputAdornment, Button } from "@mui/material";
 
 import classes from "./ContractForm.module.css";
+import ErrorCard from "./ErrorCard";
 
 interface ContractData {
   contractAmount: number;
@@ -11,39 +13,13 @@ interface ContractData {
 }
 
 const ContractForm: React.FC = () => {
+  const navigate = useNavigate();
+  const [submissionError, setSubmissionError] = useState(false);
+
   const contractAmountInput = useRef<HTMLInputElement>(null);
   const interestRateInput = useRef<HTMLInputElement>(null);
   const borrowerInput = useRef<HTMLInputElement>(null);
   const investorInput = useRef<HTMLInputElement>(null);
-
-  // may not be nessescary
-  const validate = (
-    contractAmount: number,
-    interestRate: number,
-    borrower: string,
-    investor: string
-  ): string[] => {
-    const errors = [];
-    if (!contractAmount) {
-      errors.push("Please specify the contract amount");
-    }
-    if (contractAmount < 1) {
-      errors.push("The contract amount needs to greater than 0");
-    }
-    if (!interestRate) {
-      errors.push("Please specify the contract interest rate");
-    }
-    if (interestRate < 1) {
-      errors.push("The contract amount needs to greater than 0");
-    }
-    if (!borrower.trim().length) {
-      errors.push("Please add a borrower");
-    }
-    if (!investor.trim().length) {
-      errors.push("Please add an investor");
-    }
-    return errors;
-  };
 
   const postContractData = async (contractData: ContractData) => {
     await fetch("http://localhost:7071/api/HttpTrigger1", {
@@ -63,8 +39,6 @@ const ContractForm: React.FC = () => {
     const borrower = String(borrowerInput.current?.value);
     const investor = String(investorInput.current?.value);
 
-    const errors = validate(contractAmount, interestRate, borrower, investor);
-
     const contractData = {
       contractAmount,
       interestRate,
@@ -72,15 +46,19 @@ const ContractForm: React.FC = () => {
       investor,
     };
 
-    const hasErrors = errors.length > 0;
-    console.log(errors);
-
-    if (!hasErrors) {
-      postContractData(contractData).catch((error) => {
-        console.log(error);
-      });
-    }
+    postContractData(contractData).catch((error) => {
+      setSubmissionError(true);
+    });
+    navigate("/contracts");
   };
+
+  const resetSubmissionError = () => {
+    setSubmissionError(false);
+  };
+
+  if (submissionError) {
+    return <ErrorCard resetError={resetSubmissionError} />;
+  }
 
   return (
     <form className={classes.contract__form} onSubmit={submitContract}>
