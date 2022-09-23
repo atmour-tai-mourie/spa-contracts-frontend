@@ -1,7 +1,8 @@
 import { Card } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import Contract from "./Contract";
 
-interface Contract {
+interface ContractData {
   contractID: string;
   contractAmount: number;
   interestRate: number;
@@ -10,7 +11,7 @@ interface Contract {
 }
 
 const Contracts: React.FC = () => {
-  const [contracts, setContracts] = useState<Contract[]>([]);
+  const [contracts, setContracts] = useState<ContractData[]>([]);
   const fetchContractData = async () => {
     const contractsResponse = await fetch(
       "http://localhost:7071/api/HttpTrigger2"
@@ -31,9 +32,7 @@ const Contracts: React.FC = () => {
   return (
     <>
       {contracts.map((contract) => (
-        <Card>
-          <h3>{contract.contractAmount}</h3>
-        </Card>
+        <Contract contractData={contract} />
       ))}
     </>
   );
