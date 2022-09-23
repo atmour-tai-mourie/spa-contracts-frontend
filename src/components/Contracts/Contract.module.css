@@ -1,0 +1,15 @@
+.card {
+  margin: 25px;
+  background-color: paleturquoise;
+}
+
+.card p,
+h3 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.details__container {
+  display: flex;
+  justify-content: space-between;
+}

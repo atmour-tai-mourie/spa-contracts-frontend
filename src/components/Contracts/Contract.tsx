@@ -1,6 +1,8 @@
 import { Card } from "@mui/material";
 import React from "react";
 
+import classes from "./Contract.module.css";
+
 interface ContractData {
   contractAmount: number;
   interestRate: number;
@@ -13,11 +15,15 @@ const Contract: React.FC<{ contractData: ContractData }> = ({
 }) => {
   const { contractAmount, interestRate, investor, borrower } = contractData;
   return (
-    <Card>
-      <h3>$ {contractAmount}</h3>
-      <p>{interestRate} % p.a.</p>
-      <p>Investor: {investor}</p>
-      <p>Borrower: {borrower}</p>
+    <Card className={classes.card}>
+      <div className={classes.details__container}>
+        <p>${contractAmount}</p>
+        <p>{interestRate} % p.a.</p>
+      </div>
+      <div>
+        <p>Investor: {investor}</p>
+        <p>Borrower: {borrower}</p>
+      </div>
     </Card>
   );
 };
