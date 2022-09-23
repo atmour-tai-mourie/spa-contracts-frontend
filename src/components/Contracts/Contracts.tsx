@@ -14,9 +14,12 @@ const Contracts: React.FC = () => {
   const [contracts, setContracts] = useState<ContractData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  /**
+   *  Sends a get request to API to retrieve all contracts from DB and updates the contracts state to contain these contracts
+   */
   const fetchContractData = async () => {
     const contractsResponse = await fetch(
-      "http://localhost:7071/api/HttpTrigger2"
+      "https://tai-rest-api.azurewebsites.net/api/httptriggergetcontracts"
     );
 
     const contractsData = await contractsResponse.json();

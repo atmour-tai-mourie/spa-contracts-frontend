@@ -21,16 +21,27 @@ const ContractForm: React.FC = () => {
   const borrowerInput = useRef<HTMLInputElement>(null);
   const investorInput = useRef<HTMLInputElement>(null);
 
+  /** Sends new contract data to API to add the contracts table in database
+   *
+   * @param contractData
+   */
   const postContractData = async (contractData: ContractData) => {
-    await fetch("http://localhost:7071/api/HttpTrigger1", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(contractData),
-    });
+    await fetch(
+      "https://tai-rest-api.azurewebsites.net/api/httptriggeraddcontracttodb",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contractData),
+      }
+    );
   };
 
+  /** Handles form submit event and prepares contract data to post to API
+   *
+   * @param event
+   */
   const submitContract = (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -52,6 +63,9 @@ const ContractForm: React.FC = () => {
     navigate("/contracts");
   };
 
+  /**
+   * function to pass to Error Card to reset submission error and show form again
+   */
   const resetSubmissionError = () => {
     setSubmissionError(false);
   };

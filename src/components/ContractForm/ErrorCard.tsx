@@ -4,6 +4,9 @@ import React from "react";
 import classes from "./ErrorCard.module.css";
 
 const ErrorCard: React.FC<{ resetError: () => void }> = ({ resetError }) => {
+  /**
+   * handles click of try again
+   */
   const handleTryAgain = () => {
     resetError();
   };
