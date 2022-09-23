@@ -34,7 +34,7 @@ const Contracts: React.FC = () => {
     <>
       {isLoading && <Spinner />}
       {contracts.map((contract) => (
-        <Contract contractData={contract} />
+        <Contract key={contract.contractID} contractData={contract} />
       ))}
     </>
   );
