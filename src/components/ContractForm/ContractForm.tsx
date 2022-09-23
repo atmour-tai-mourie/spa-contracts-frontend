@@ -42,7 +42,7 @@ const ContractForm: React.FC = () => {
    *
    * @param event
    */
-  const submitContract = (event: React.FormEvent) => {
+  const submitNewContract = (event: React.FormEvent) => {
     event.preventDefault();
 
     const contractAmount = Number(contractAmountInput.current?.value);
@@ -75,7 +75,7 @@ const ContractForm: React.FC = () => {
   }
 
   return (
-    <form className={classes.contract__form} onSubmit={submitContract}>
+    <form className={classes.contract__form} onSubmit={submitNewContract}>
       <h2 className={classes.contract__title}>New Contract</h2>
       <TextField
         id="contractAmount"
