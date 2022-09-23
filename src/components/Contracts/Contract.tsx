@@ -15,7 +15,10 @@ const Contract: React.FC<{ contractData: ContractData }> = ({
 }) => {
   const { contractAmount, interestRate, investor, borrower } = contractData;
   return (
-    <Card className={classes.card}>
+    <Card
+      className={classes.card}
+      sx={{ backgroundColor: "rgb(200, 223, 223)" }}
+    >
       <div className={classes.details__container}>
         <p>${contractAmount}</p>
         <p>{interestRate} % p.a.</p>
