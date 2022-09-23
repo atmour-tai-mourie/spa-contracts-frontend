@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { TextField, InputAdornment, Button } from "@mui/material";
 
 import classes from "./ContractForm.module.css";
-import ErrorCard from "./ErrorCard";
+import ErrorCard from "../UI/ErrorCard";
 
 interface ContractData {
   contractAmount: number;
@@ -21,21 +21,40 @@ const ContractForm: React.FC = () => {
   const borrowerInput = useRef<HTMLInputElement>(null);
   const investorInput = useRef<HTMLInputElement>(null);
 
+  // /** Check if the API returned an error status
+  //  *
+  //  * @param postResponse http response
+  //  */
+  // const checkResponseStatus = (postResponse: Response) => {
+  //   if (postResponse.status === 400) {
+  //     setSubmissionError(true);
+  //   }
+  // };
+
   /** Sends new contract data to API to add the contracts table in database
    *
    * @param contractData
    */
   const postContractData = async (contractData: ContractData) => {
-    await fetch(
-      "https://tai-rest-api.azurewebsites.net/api/httptriggeraddcontracttodb",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(contractData),
+    try {
+      const postResponse = await fetch(
+        // "https://tai-rest-api.azurewebsites.net/api/httptriggeraddcontracttodb",
+        "http://localhost:7071/api/HttpTriggerAddContractToDB",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(contractData),
+        }
+      );
+      if (!postResponse.ok) {
+        throw new Error("Something went wrong");
       }
-    );
+      navigate("/contracts");
+    } catch (error) {
+      setSubmissionError(true);
+    }
   };
 
   /** Handles form submit event and prepares contract data to post to API
@@ -57,10 +76,7 @@ const ContractForm: React.FC = () => {
       investor,
     };
 
-    postContractData(contractData).catch((error) => {
-      setSubmissionError(true);
-    });
-    navigate("/contracts");
+    postContractData(contractData);
   };
 
   /**
@@ -70,8 +86,15 @@ const ContractForm: React.FC = () => {
     setSubmissionError(false);
   };
 
+  const submissionErrorMessage = "There was an error submitting this contract";
+
   if (submissionError) {
-    return <ErrorCard resetError={resetSubmissionError} />;
+    return (
+      <ErrorCard
+        resetError={resetSubmissionError}
+        errorMessage={submissionErrorMessage}
+      />
+    );
   }
 
   return (

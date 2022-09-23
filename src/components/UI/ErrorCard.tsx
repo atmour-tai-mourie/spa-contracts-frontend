@@ -3,7 +3,11 @@ import React from "react";
 
 import classes from "./ErrorCard.module.css";
 
-const ErrorCard: React.FC<{ resetError: () => void }> = ({ resetError }) => {
+interface ErrorCardProps {
+  resetError: () => void;
+  errorMessage: string;
+}
+const ErrorCard: React.FC<ErrorCardProps> = ({ resetError, errorMessage }) => {
   /**
    * handles click of try again
    */
@@ -13,7 +17,7 @@ const ErrorCard: React.FC<{ resetError: () => void }> = ({ resetError }) => {
 
   return (
     <Card className={classes.card}>
-      <p>Oops! There was an error submitting this contract</p>
+      <p>Oops! {errorMessage}</p>
       <Button onClick={handleTryAgain}>Try Again</Button>
     </Card>
   );
