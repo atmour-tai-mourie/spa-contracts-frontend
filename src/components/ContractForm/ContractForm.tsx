@@ -107,7 +107,7 @@ const ContractForm: React.FC = () => {
         type="number"
         InputProps={{
           startAdornment: <InputAdornment position="start">$</InputAdornment>,
-          inputProps: { min: 0 },
+          inputProps: { min: 1000 },
         }}
         inputRef={contractAmountInput}
         required
@@ -121,7 +121,7 @@ const ContractForm: React.FC = () => {
           endAdornment: (
             <InputAdornment position="start">% p.a.</InputAdornment>
           ),
-          inputProps: { min: 0, max: 200, step: 0.01 },
+          inputProps: { min: 0.01, max: 200, step: 0.01 },
         }}
         inputRef={interestRateInput}
         required
