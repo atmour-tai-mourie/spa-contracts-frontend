@@ -1,4 +1,3 @@
-import { Card } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Contract from "./Contract";
 

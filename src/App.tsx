@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Container from "@mui/material/Container";
 
 import ContractForm from "./components/ContractForm/ContractForm";
-import Header from "./components/UI/Header/Header";
+import Header from "./components/UI/Header";
 import Contracts from "./components/Contracts/Contracts";
 
 function App() {
