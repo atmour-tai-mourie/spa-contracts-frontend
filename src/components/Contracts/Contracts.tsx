@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ErrorCard from "../UI/ErrorCard";
 import Spinner from "../UI/Spinner";
 import Contract from "./Contract";
+
+import classes from "./Contracts.module.css";
 
 interface ContractData {
   contractID: string;
@@ -30,6 +33,7 @@ const Contracts: React.FC = () => {
       setIsLoading(false);
       setContracts(contractsData);
     } catch (error) {
+      setIsLoading(false);
       setContractsRequestError(true);
     }
   };
@@ -65,6 +69,14 @@ const Contracts: React.FC = () => {
       {contracts.map((contract) => (
         <Contract key={contract.contractID} contractData={contract} />
       ))}
+      {!isLoading && !contracts.length && (
+        <div className={classes.no__contracts__div}>
+          <p>
+            There are no contracts yet! Please add one{" "}
+            <Link to={"/"}>here.</Link>
+          </p>
+        </div>
+      )}
     </>
   );
 };
