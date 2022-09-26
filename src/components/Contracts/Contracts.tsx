@@ -23,8 +23,8 @@ const Contracts: React.FC = () => {
   const fetchContractData = async () => {
     try {
       const contractsResponse = await fetch(
-        // "https://tai-rest-api.azurewebsites.net/api/httptriggergetcontracts"
-        "http://localhost:7071/api/HttpTriggerGetContracts"
+        "https://tai-rest-api.azurewebsites.net/api/httptriggergetcontracts"
+        // "http://localhost:7071/api/HttpTriggerGetContracts"
       );
 
       const contractsData = await contractsResponse.json();

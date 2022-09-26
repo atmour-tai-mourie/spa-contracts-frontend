@@ -21,16 +21,6 @@ const ContractForm: React.FC = () => {
   const borrowerInput = useRef<HTMLInputElement>(null);
   const investorInput = useRef<HTMLInputElement>(null);
 
-  // /** Check if the API returned an error status
-  //  *
-  //  * @param postResponse http response
-  //  */
-  // const checkResponseStatus = (postResponse: Response) => {
-  //   if (postResponse.status === 400) {
-  //     setSubmissionError(true);
-  //   }
-  // };
-
   /** Sends new contract data to API to add the contracts table in database
    *
    * @param contractData
@@ -38,8 +28,8 @@ const ContractForm: React.FC = () => {
   const postContractData = async (contractData: ContractData) => {
     try {
       const postResponse = await fetch(
-        // "https://tai-rest-api.azurewebsites.net/api/httptriggeraddcontracttodb",
-        "http://localhost:7071/api/HttpTriggerAddContractToDB",
+        "https://tai-rest-api.azurewebsites.net/api/httptriggeraddcontracttodb",
+        // "http://localhost:7071/api/HttpTriggerAddContractToDB",
         {
           method: "POST",
           headers: {
