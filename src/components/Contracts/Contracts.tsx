@@ -1,4 +1,3 @@
-import { truncate } from "fs";
 import React, { useEffect, useState } from "react";
 import ErrorCard from "../UI/ErrorCard";
 import Spinner from "../UI/Spinner";
