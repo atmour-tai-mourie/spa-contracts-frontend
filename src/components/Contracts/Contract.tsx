@@ -5,24 +5,31 @@ import classes from './Contract.module.css';
 import { Delete } from '@mui/icons-material';
 
 interface ContractData {
+  id: string;
   contractAmount: number;
   interestRate: number;
   borrower: string;
   investor: string;
 }
 
-const Contract: React.FC<{ contractData: ContractData }> = ({
-  contractData,
-}) => {
-  const { contractAmount, interestRate, investor, borrower } = contractData;
+interface Props {
+  contractData: ContractData;
+  deleteContract: (id: string) => void;
+}
+
+const Contract: React.FC<Props> = ({ contractData, deleteContract }) => {
+  const { contractAmount, interestRate, investor, borrower, id } = contractData;
+
   return (
     <Card
       className={classes.card}
       sx={{ backgroundColor: 'rgb(200, 223, 223)' }}
     >
-      <div className={classes.details__container}>
-        <p>${contractAmount}</p>
-        <p>{interestRate} % p.a.</p>
+      <div className={classes.button__container}>
+        <IconButton onClick={() => deleteContract(id)}>
+          <Delete />
+        </IconButton>
+      </div>
       <div className={classes.parties__container}>
         <div>
           <Typography fontWeight="bold">Investor</Typography>

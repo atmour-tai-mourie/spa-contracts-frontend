@@ -18,23 +18,45 @@ interface ContractData {
 const Contracts: React.FC = () => {
   const [contracts, setContracts] = useState<ContractData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [contractsRequestError, setContractsRequestError] = useState(false);
+  const [contractsRequestError, setContractsRequestError] = useState<
+    string | undefined
+  >();
 
   /**
    *  Sends a get request to API to retrieve all contracts from DB and updates the contracts state to contain these contracts
    */
   const fetchContractData = async () => {
     try {
-      const contractsResponse = await fetch(
-        `${SERVER_URL}HttpTriggerGetContracts`
-      );
+      const contractsResponse = await fetch(`${SERVER_URL}/contracts`);
 
       const { data: contractsData } = await contractsResponse.json();
       setIsLoading(false);
       setContracts(contractsData);
     } catch (error) {
       setIsLoading(false);
-      setContractsRequestError(true);
+      setContractsRequestError('There was an error retrieving the contracts');
+    }
+  };
+
+  const deleteContract = async (id: string) => {
+    try {
+      setIsLoading(true);
+      const postResponse = await fetch(`${SERVER_URL}/contract/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!postResponse.ok) {
+        throw new Error('Error deleting contract');
+      }
+
+      fetchContractData();
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setContractsRequestError('There was an error deleting the contract');
     }
   };
 
@@ -47,18 +69,15 @@ const Contracts: React.FC = () => {
    */
   const resetContractsRequestError = () => {
     setIsLoading(true);
-    setContractsRequestError(false);
+    setContractsRequestError(undefined);
     fetchContractData();
   };
-
-  const contractRequestErrorMessage =
-    'There was an error retrieving the contracts';
 
   if (contractsRequestError) {
     return (
       <ErrorCard
         resetError={resetContractsRequestError}
-        errorMessage={contractRequestErrorMessage}
+        errorMessage={contractsRequestError}
       />
     );
   }
@@ -67,7 +86,11 @@ const Contracts: React.FC = () => {
     <>
       {isLoading && <Spinner />}
       {contracts.map((contract) => (
-        <Contract key={contract.id} contractData={contract} />
+        <Contract
+          key={contract.id}
+          contractData={contract}
+          deleteContract={deleteContract}
+        />
       ))}
       {!isLoading && !contracts.length && (
         <div className={classes.no__contracts__div}>

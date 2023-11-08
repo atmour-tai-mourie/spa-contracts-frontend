@@ -28,16 +28,13 @@ const ContractForm: React.FC = () => {
    */
   const postContractData = async (contractData: ContractData) => {
     try {
-      const postResponse = await fetch(
-        `${SERVER_URL}HttpTriggerAddContractToDB`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(contractData),
-        }
-      );
+      const postResponse = await fetch(`${SERVER_URL}/contract`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(contractData),
+      });
 
       if (!postResponse.ok) {
         throw new Error('Something went wrong');

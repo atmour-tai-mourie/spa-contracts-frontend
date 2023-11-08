@@ -15,7 +15,10 @@ h3 {
   margin-bottom: 10px;
 }
 
-.details__container {
+.button__container {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
+  margin-bottom: -30px;
+  margin-top: -10px;
+  margin-right: -10px;
 }
