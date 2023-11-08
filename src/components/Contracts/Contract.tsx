@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Card, Icon, IconButton, Typography } from '@mui/material';
+import { Card, IconButton, Typography } from '@mui/material';
 
 import classes from './Contract.module.css';
 import { Delete } from '@mui/icons-material';
