@@ -1,11 +1,18 @@
 .card {
   margin: 25px;
+  padding: 20px;
 }
 
 .card p,
 h3 {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.parties__container {
+  display: flex;
+  gap: 140px;
+  margin-bottom: 10px;
 }
 
 .details__container {

@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import ErrorCard from "../UI/ErrorCard";
-import Spinner from "../UI/Spinner";
-import Contract from "./Contract";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import ErrorCard from '../UI/ErrorCard';
+import Spinner from '../UI/Spinner';
+import Contract from './Contract';
 
-import classes from "./Contracts.module.css";
+import classes from './Contracts.module.css';
+import { SERVER_URL } from '../../constants';
 
 interface ContractData {
-  contractID: string;
+  id: string;
   contractAmount: number;
   interestRate: number;
   borrower: string;
@@ -25,11 +26,10 @@ const Contracts: React.FC = () => {
   const fetchContractData = async () => {
     try {
       const contractsResponse = await fetch(
-        "https://tai-rest-api.azurewebsites.net/api/httptriggergetcontracts"
-        // "http://localhost:7071/api/HttpTriggerGetContracts"
+        `${SERVER_URL}HttpTriggerGetContracts`
       );
 
-      const contractsData = await contractsResponse.json();
+      const { data: contractsData } = await contractsResponse.json();
       setIsLoading(false);
       setContracts(contractsData);
     } catch (error) {
@@ -52,7 +52,7 @@ const Contracts: React.FC = () => {
   };
 
   const contractRequestErrorMessage =
-    "There was an error retrieving the contracts";
+    'There was an error retrieving the contracts';
 
   if (contractsRequestError) {
     return (
@@ -67,13 +67,13 @@ const Contracts: React.FC = () => {
     <>
       {isLoading && <Spinner />}
       {contracts.map((contract) => (
-        <Contract key={contract.contractID} contractData={contract} />
+        <Contract key={contract.id} contractData={contract} />
       ))}
       {!isLoading && !contracts.length && (
         <div className={classes.no__contracts__div}>
           <p>
-            There are no contracts yet! Please add one{" "}
-            <Link to={"/"}>here.</Link>
+            There are no contracts yet! Please add one{' '}
+            <Link to={'/'}>here.</Link>
           </p>
         </div>
       )}

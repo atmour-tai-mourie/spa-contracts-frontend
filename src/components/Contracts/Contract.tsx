@@ -1,7 +1,8 @@
-import React from "react";
-import { Card } from "@mui/material";
+import React from 'react';
+import { Box, Button, Card, Icon, IconButton, Typography } from '@mui/material';
 
-import classes from "./Contract.module.css";
+import classes from './Contract.module.css';
+import { Delete } from '@mui/icons-material';
 
 interface ContractData {
   contractAmount: number;
@@ -17,15 +18,30 @@ const Contract: React.FC<{ contractData: ContractData }> = ({
   return (
     <Card
       className={classes.card}
-      sx={{ backgroundColor: "rgb(200, 223, 223)" }}
+      sx={{ backgroundColor: 'rgb(200, 223, 223)' }}
     >
       <div className={classes.details__container}>
         <p>${contractAmount}</p>
         <p>{interestRate} % p.a.</p>
+      <div className={classes.parties__container}>
+        <div>
+          <Typography fontWeight="bold">Investor</Typography>
+          <Typography>{investor}</Typography>
+        </div>
+        <div>
+          <Typography fontWeight="bold">Borrower</Typography>
+          <Typography>{borrower}</Typography>
+        </div>
       </div>
-      <div>
-        <p>Investor: {investor}</p>
-        <p>Borrower: {borrower}</p>
+      <div className={classes.parties__container}>
+        <div>
+          <Typography fontWeight="bold">Amount</Typography>
+          <Typography>${contractAmount}</Typography>
+        </div>
+        <div>
+          <Typography fontWeight="bold">Interest Rate</Typography>
+          <Typography>{interestRate} % p.a.</Typography>
+        </div>
       </div>
     </Card>
   );

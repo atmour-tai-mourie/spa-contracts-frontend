@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { TextField, InputAdornment, Button } from "@mui/material";
+import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { TextField, InputAdornment, Button } from '@mui/material';
 
-import classes from "./ContractForm.module.css";
-import ErrorCard from "../UI/ErrorCard";
+import classes from './ContractForm.module.css';
+import ErrorCard from '../UI/ErrorCard';
+import { SERVER_URL } from '../../constants';
 
 interface ContractData {
   contractAmount: number;
@@ -28,20 +29,20 @@ const ContractForm: React.FC = () => {
   const postContractData = async (contractData: ContractData) => {
     try {
       const postResponse = await fetch(
-        "https://tai-rest-api.azurewebsites.net/api/httptriggeraddcontracttodb",
-        // "http://localhost:7071/api/HttpTriggerAddContractToDB",
+        `${SERVER_URL}HttpTriggerAddContractToDB`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(contractData),
         }
       );
+
       if (!postResponse.ok) {
-        throw new Error("Something went wrong");
+        throw new Error('Something went wrong');
       }
-      navigate("/contracts");
+      navigate('/contracts');
     } catch (error) {
       setSubmissionError(true);
     }
@@ -76,7 +77,7 @@ const ContractForm: React.FC = () => {
     setSubmissionError(false);
   };
 
-  const submissionErrorMessage = "There was an error submitting this contract";
+  const submissionErrorMessage = 'There was an error submitting this contract';
 
   if (submissionError) {
     return (
